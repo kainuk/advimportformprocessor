@@ -11,6 +11,7 @@ function advimportformprocessor_civicrm_advimport_helpers(&$helpers) {
   $helpers[] = [
     'class' => 'CRM_Advimportformprocessor_Advimport_Formprocessor',
     'label' => E::ts('Form Processor'),
+    'name'  => 'advimport_formprocessor',
   ];
 }
 
