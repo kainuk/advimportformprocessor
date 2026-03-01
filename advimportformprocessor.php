@@ -2,8 +2,14 @@
 
 require_once 'advimportformprocessor.civix.php';
 use CRM_Advimportformprocessor_ExtensionUtil as E;
+use \Symfony\Component\DependencyInjection\ContainerBuilder;
 
 
+function advimportformprocessor_civicrm_container(ContainerBuilder $container) {
+  if (class_exists('Civi\Advimportformprocessor\CompilerPass')) {
+    $container->addCompilerPass(new Civi\Advimportformprocessor\CompilerPass());
+  }
+}
 /**
  * Implements hook_civicrm_advimport_helpers()
  */
