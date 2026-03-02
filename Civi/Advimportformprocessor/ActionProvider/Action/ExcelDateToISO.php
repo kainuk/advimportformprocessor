@@ -10,8 +10,12 @@ class ExcelDateToISO extends AbstractAction
 {
 
   protected function doAction(ParameterBagInterface $parameters, ParameterBagInterface $output) {
-    $unix = ($parameters->getParameter('exceldate') - 25569) * 86400;
-    $output->setParameter('date',gmdate("Y-m-d H:i:s", $unix));
+    if(!$parameters->parameterExists('exceldate') || empty($parameters->getParameter('exceldate'))){
+      $output->setParameter('date',null);
+    } else {
+      $unix = ($parameters->getParameter('exceldate') - 25569) * 86400;
+      $output->setParameter('date', gmdate("Y-m-d H:i:s", $unix));
+    }
   }
 
   public function getConfigurationSpecification() {
@@ -20,13 +24,13 @@ class ExcelDateToISO extends AbstractAction
 
   public function getParameterSpecification() {
     return new SpecificationBag(
-      [new Specification('exceldate', 'Integer', E::ts('Excel Date'), true, null, null, null, false)]
+      [new Specification('exceldate', 'Integer', E::ts('Excel Date'), false, null, null, null, false)]
     );
   }
 
   public function getOutputSpecification() {
     return new SpecificationBag(
-    [new Specification('date', 'Date', E::ts('Date'), true, null, null, null, false)]);
+    [new Specification('date', 'Date', E::ts('Date'), false, null, null, null, false)]);
   }
 
 }
